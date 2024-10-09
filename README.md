@@ -1,9 +1,10 @@
 # E-Commerce Data Pipeline
 
-Welcome to the E-Commerce Data Pipeline project! This advanced system integrates and processes data from multiple sales channels, including Shopify, to provide comprehensive insights and recommendations for an e-commerce business.
+Welcome to the E-Commerce Data Pipeline project! This advanced system integrates and processes data from multiple sales channels and third-party data sources to provide comprehensive insights and recommendations for an e-commerce business.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
+- [Data Sources](#data-sources)
 - [Azure Architecture](#azure-architecture)
 - [Project Structure](#project-structure)
 - [Setup and Configuration](#setup-and-configuration)
@@ -16,16 +17,100 @@ Welcome to the E-Commerce Data Pipeline project! This advanced system integrates
 
 ## Project Overview
 
-Our E-Commerce Data Pipeline is designed to handle data from various sales channels, including Shopify, to provide a unified view of the business. It includes data ingestion, processing, analysis, and reporting components to enhance decision-making and optimize operations.
+Our E-Commerce Data Pipeline is designed to handle data from various sales channels and external data sources to provide a unified view of the business. It includes data ingestion, processing, analysis, and reporting components to enhance decision-making and optimize operations.
 
 Key features:
 - Integration with multiple e-commerce platforms (Shopify, WooCommerce, Magento, etc.)
+- Integration with high-quality third-party data sources for enhanced insights
 - Real-time data ingestion and processing
 - Scalable data processing using Azure Data Factory and Azure Databricks
 - Comprehensive sales data analysis and reporting
 - Customer behavior segmentation and personalized recommendations
 - Inventory management and pricing optimization
 - Integration with Azure Cognitive Services for natural language processing of customer feedback
+
+## Data Sources
+
+### Internal Data Sources
+1. **E-commerce Platforms**
+   - Shopify API
+   - WooCommerce REST API
+   - Magento 2 REST API
+
+2. **Customer Service**
+   - Zendesk API for customer support tickets
+   - Intercom API for customer communications
+
+### External Data Sources
+1. **Market Intelligence**
+   - **Nielsen Retail Measurement Services**: Access point-of-sale data and market share insights
+     - API Documentation: [Nielsen API Portal](https://developer.nielsen.com/apis)
+     - Use for: Competitive analysis and market positioning
+
+2. **Economic Indicators**
+   - **US Census Bureau Retail Trade API**: Monthly retail sales data
+     - API Endpoint: https://api.census.gov/data/timeseries/eits/marts
+     - Use for: Market trend analysis and forecasting
+
+3. **Weather Data**
+   - **OpenWeatherMap API**: Historical and forecast weather data
+     - API Documentation: [OpenWeatherMap API](https://openweathermap.org/api)
+     - Use for: Analyzing weather impact on sales patterns
+
+4. **Social Media Sentiment**
+   - **Twitter API v2**: Real-time social media sentiment analysis
+     - API Documentation: [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
+     - Use for: Brand monitoring and trend detection
+
+5. **Product Information**
+   - **Google Product Catalog API**: Enriched product data
+     - API Documentation: [Google Shopping Content API](https://developers.google.com/shopping-content/reference/rest)
+     - Use for: Product catalog enrichment and competitive pricing
+
+### Data Integration Examples
+
+```python
+# Example: Integrating Nielsen market data
+from nielsen_api import NielsenClient
+from azure.storage.blob import BlobServiceClient
+
+def ingest_nielsen_data():
+    nielsen_client = NielsenClient(api_key=os.environ["NIELSEN_API_KEY"])
+    
+    # Fetch market share data
+    market_data = nielsen_client.get_market_share(
+        category="electronics",
+        time_period="last_month"
+    )
+    
+    # Store in Azure Blob Storage
+    blob_service_client = BlobServiceClient.from_connection_string(os.environ["AZURE_STORAGE_CONNECTION_STRING"])
+    container_client = blob_service_client.get_container_client("market-data")
+    
+    blob_client = container_client.get_blob_client(f"nielsen_data_{datetime.now().strftime('%Y%m%d')}.json")
+    blob_client.upload_blob(json.dumps(market_data))
+
+# Example: Integrating weather data with sales analysis
+def analyze_weather_impact():
+    weather_client = OpenWeatherMapClient(api_key=os.environ["OPENWEATHER_API_KEY"])
+    
+    # Fetch historical weather data
+    weather_data = weather_client.get_historical_weather(
+        city="New York",
+        start_date="2024-01-01",
+        end_date="2024-03-31"
+    )
+    
+    # Join weather data with sales data in Spark
+    weather_df = spark.createDataFrame(weather_data)
+    sales_df = spark.read.parquet("abfss://processed-data@yourdatalake.dfs.core.windows.net/sales_data/")
+    
+    weather_sales_analysis = sales_df.join(weather_df, "date") \
+        .groupBy("weather_condition") \
+        .agg(avg("daily_sales").alias("avg_sales_by_weather"))
+    
+    return weather_sales_analysis
+```
 
 ## Azure Architecture
 
