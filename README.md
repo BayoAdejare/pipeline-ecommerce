@@ -7,6 +7,7 @@ Welcome to the E-Commerce Data Pipeline project! This advanced system integrates
 - [Data Sources](#data-sources)
 - [Azure Architecture](#azure-architecture)
 - [Project Structure](#project-structure)
+- [Installation](#installation)
 - [Setup and Configuration](#setup-and-configuration)
 - [Usage](#usage)
 - [Example: Sales Data Integration and Analysis](#example-sales-data-integration-and-analysis)
@@ -210,6 +211,19 @@ ecommerce-data-pipeline/
 6. Import Power BI reports from the `power_bi/` directory and configure data sources.
 
 7. Configure Shopify (or other e-commerce platform) integration settings in the `adf/linkedService/` directory.
+
+### Local install
+
+Make sure you have the virtual environment configured:
+
+```
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```
+
+For requirements, this can be installed from the project directory via pip's setup command:
+
+`pip install -r requirements.txt # =< python3.12 `
 
 ## Usage
 
