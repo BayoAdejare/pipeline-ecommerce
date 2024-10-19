@@ -39,8 +39,11 @@ def generate_orders(num_orders):
 num_orders = 100000
 synthetic_orders = generate_orders(num_orders)
 
-# Save to JSON file
-with open('shopify_orders.json', 'w') as f:
+# Save to JSON file with unique filename
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = f"shopify_orders_{timestamp}.json"
+
+with open(filename, 'w') as f:
     json.dump(synthetic_orders, f, indent=2)
 
-print(f"Generated {num_orders} synthetic Shopify orders and saved to shopify_orders.json")
+print(f"Generated {num_orders} synthetic Shopify orders and saved to {filename}")
