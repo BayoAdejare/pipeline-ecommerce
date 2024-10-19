@@ -46,8 +46,11 @@ end_date = datetime(2023, 12, 31)
 # Generate sales data
 processed_sales_data = generate_sales_data(start_date, end_date, product_ids)
 
-# Save to JSON file
-with open('processed_sales_data.json', 'w') as f:
+# Save to JSON file with unique filename
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+filename = f"processed_sales_{timestamp}.json"
+
+with open(filename, 'w') as f:
     json.dump(processed_sales_data, f, indent=2)
 
-print(f"Generated {len(processed_sales_data)} processed sales data entries and saved to processed_sales_data.json")
+print(f"Generated {len(processed_sales_data)} processed sales data entries and saved to {filename}")
