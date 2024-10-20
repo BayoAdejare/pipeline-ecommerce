@@ -58,7 +58,7 @@ num_products = 10000
 synthetic_products = generate_products(num_products)
 
 # Save to JSON file
-with open('shopify_products.json', 'w') as f:
+with open('ecomm_products.json', 'w') as f:
     json.dump(synthetic_products, f, indent=2)
 
-print(f"Generated {num_products} synthetic Shopify products and saved to shopify_products.json")
+print(f"Generated {num_products} synthetic e-commerce products and saved to ecomm_products.json")

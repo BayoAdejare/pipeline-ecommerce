@@ -41,9 +41,9 @@ synthetic_orders = generate_orders(num_orders)
 
 # Save to JSON file with unique filename
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-filename = f"shopify_orders_{timestamp}.json"
+filename = f"ecomm_orders_{timestamp}.json"
 
 with open(filename, 'w') as f:
     json.dump(synthetic_orders, f, indent=2)
 
-print(f"Generated {num_orders} synthetic Shopify orders and saved to {filename}")
+print(f"Generated {num_orders} synthetic e-commerce orders and saved to {filename}")
