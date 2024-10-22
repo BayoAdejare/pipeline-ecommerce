@@ -45,7 +45,7 @@ Key features:
 ### External Data Sources
 1. **Market Intelligence**
    - **Nielsen Retail Measurement Services**: Access point-of-sale data and market share insights
-     - API Documentation: [Nielsen API Portal](https://developer.nielsen.com/apis)
+     - API Documentation: [Nielsen API Portal](https://engineeringportal.nielsen.com)
      - Use for: Competitive analysis and market positioning
 
 2. **Economic Indicators**
