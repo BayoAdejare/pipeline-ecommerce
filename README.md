@@ -59,8 +59,8 @@ Key features:
      - Use for: Analyzing weather impact on sales patterns
 
 4. **Social Media Sentiment**
-   - **Twitter API v2**: Real-time social media sentiment analysis
-     - API Documentation: [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
+   - **X API v2**: Real-time social media sentiment analysis
+     - API Documentation: [X API](https://developer.x.com/en/docs/x-api)
      - Use for: Brand monitoring and trend detection
 
 5. **Product Information**
